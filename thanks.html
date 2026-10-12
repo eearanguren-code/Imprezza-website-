@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Request received | Imprezza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--midnight:#0A0F1A;--line:#22304A;--paper:#EEE8DD;--mist:#9AA6B8;--teal:#1FD6C6;--gold:#D8A84E;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--midnight);color:var(--paper);font:17px/1.6 "Barlow","Segoe UI",system-ui,sans-serif;padding:40px 20px}
+main{max-width:560px}
+.brand{font:400 30px/1 "Bebas Neue","Oswald","Arial Narrow",Impact,sans-serif;letter-spacing:.06em;color:var(--paper);text-decoration:none}
+h1{font:400 clamp(44px,8vw,68px)/1 "Bebas Neue","Oswald","Arial Narrow",Impact,sans-serif;margin:40px 0 16px;letter-spacing:.01em}
+p{color:#D3CDC2;margin:0 0 28px}
+a.btn{display:inline-block;background:var(--teal);color:var(--midnight);font-weight:600;text-decoration:none;padding:13px 22px;border-radius:4px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+</style>
+</head>
+<body>
+<main>
+  <a class="brand" href="/">IMPREZZA</a>
+  <h1 id="h">Request received</h1>
+  <p id="p">Thank you. We'll reply within 1 to 2 business days with a proof of your design and the final price. Nothing is charged until you approve it.</p>
+  <a class="btn" id="b" href="/">Back to Imprezza</a>
+</main>
+<script>
+(function(){
+  var lang = 'en';
+  try { lang = localStorage.getItem('imprezza-lang') || lang; } catch(e){}
+  if (lang === 'es') {
+    document.documentElement.lang = 'es';
+    document.title = 'Pedido recibido | Imprezza';
+    document.getElementById('h').textContent = 'Pedido recibido';
+    document.getElementById('p').textContent = 'Gracias. Te respondemos en 1 a 2 días hábiles con una prueba de tu diseño y el precio final. No se cobra nada hasta que lo apruebes.';
+    document.getElementById('b').textContent = 'Volver a Imprezza';
+  }
+})();
+</script>
+</body>
+</html>
