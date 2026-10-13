@@ -649,9 +649,11 @@ footer p{margin:0}
   // How many photos each product has in /img/products, named <name>-1.webp, <name>-2.webp ...
   // Photo 1 shows on the card, photo 2 shows on hover, all of them open in the gallery.
   var PHOTOS = {
-    'crystal':0, 'tumbler':0, 'pet-tag':0, 'cutting-board':0, 'led-sign':0,
+    'crystal':0, 'tumbler':0, 'pet-tag':0, 'cutting-board':1, 'led-sign':0,
     'event-sign':0, 'glassware':0, 'ornament':0, 'business':0
   };
+  // Optional: which part of a photo to keep in view on the card (horizontal% vertical%)
+  var FOCUS = { 'cutting-board':'50% 75%' };
   // true once media/studio.mp4 and media/studio-poster.webp are uploaded
   var VIDEO = false;
   // WhatsApp number with country code, digits only (for example '17135551234'). Empty hides the button.
@@ -847,6 +849,7 @@ footer p{margin:0}
     img.className = 'ph'; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
     img.onerror = function(){ img.remove(); sw.classList.remove('has-photo', 'has-2'); };
     img.src = photoPath(slug, 1);
+    if (FOCUS[slug]) img.style.objectPosition = FOCUS[slug];
     sw.appendChild(img);
     sw.classList.add('has-photo');
     if (n > 1) {
@@ -854,12 +857,15 @@ footer p{margin:0}
       img2.className = 'ph ph2'; img2.alt = ''; img2.loading = 'lazy'; img2.decoding = 'async';
       img2.onerror = function(){ img2.remove(); sw.classList.remove('has-2'); };
       img2.src = photoPath(slug, 2);
+      if (FOCUS[slug]) img2.style.objectPosition = FOCUS[slug];
       sw.appendChild(img2);
       sw.classList.add('has-2');
     }
-    var badge = document.createElement('span');
-    badge.className = 'shots'; badge.innerHTML = CAMERA + n;
-    sw.appendChild(badge);
+    if (n > 1) {
+      var badge = document.createElement('span');
+      badge.className = 'shots'; badge.innerHTML = CAMERA + n;
+      sw.appendChild(badge);
+    }
     sw.removeAttribute('aria-hidden');
     sw.setAttribute('role', 'button'); sw.tabIndex = 0; sw.setAttribute('aria-haspopup', 'dialog');
     hooks.push(function(){ sw.setAttribute('aria-label', tr('see_photos') + holderTitle(holder)); img.alt = holderTitle(holder); });
