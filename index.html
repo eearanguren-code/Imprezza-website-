@@ -136,17 +136,16 @@ section[id]{scroll-margin-top:72px}
 /* products: each tile shows the mark on its real material */
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 28px}
 .tile{display:flex;flex-direction:column;min-width:0}
-.tile.feature{grid-column:span 2}
 .tile h3{font:600 20px/1.25 var(--body);margin:18px 0 6px}
 .tile p{margin:0 0 12px;color:#C9C3B8;font-size:16px}
 .tile .meta{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:auto;border-top:1px solid var(--line);padding-top:12px}
 .price{font-variant-numeric:tabular-nums;color:var(--paper);font-weight:600}
 .order-link{background:none;border:0;padding:0;color:var(--teal);font:600 15px var(--body);cursor:pointer;text-decoration:underline;text-underline-offset:4px}
 @media (max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:621px) and (max-width:980px){.tile.feature{grid-column:span 2}.feature .swatch{aspect-ratio:16/9}}
 @media (max-width:620px){.grid{grid-template-columns:minmax(0,1fr)}.tile.feature{grid-column:auto}}
 
 .swatch{position:relative;aspect-ratio:4/3;border-radius:6px;overflow:hidden;display:grid;place-items:center;isolation:isolate}
-.feature .swatch{aspect-ratio:16/9}
 .swatch .mark{position:relative;z-index:1;text-align:center;line-height:1;max-width:90%}
 
 /* real photos sit on top of the drawn swatch; the drawing stays as the fallback */
@@ -196,6 +195,9 @@ section[id]{scroll-margin-top:72px}
 .m-glass{background:linear-gradient(90deg,transparent 22%,rgba(255,255,255,.07) 26%,transparent 31%),linear-gradient(90deg,transparent 64%,rgba(255,255,255,.05) 67%,transparent 71%),linear-gradient(180deg,#16263a,#0c1522)}
 .m-glass .mark{font:italic 500 clamp(40px,5vw,56px) var(--body);color:rgba(240,246,250,.78);text-shadow:0 0 1px rgba(255,255,255,.6)}
 
+.m-maple{background:linear-gradient(180deg,#3b2618,#2a1a10)}
+.frame{width:58%;aspect-ratio:3/4;background:radial-gradient(circle at 50% 40%,#efdcb9,#dcc196 75%);box-shadow:0 0 0 9px #4a2e1c;display:grid;place-items:center}
+.frame .mark{font:400 clamp(26px,3vw,34px) Georgia,serif;color:#5a3418;text-shadow:0 0 1px rgba(90,52,24,.6)}
 .m-birch{background:linear-gradient(180deg,#132033,#0c1524)}
 .disc{width:52%;aspect-ratio:1;border-radius:50%;background:repeating-radial-gradient(circle at 50% 50%,rgba(120,80,40,.10) 0 2px,transparent 2px 9px),radial-gradient(circle,#ecd3a6,#d9b47c 70%,#b98c55);display:grid;place-items:center;position:relative}
 .disc::before{content:"";position:absolute;top:7%;left:50%;width:7%;aspect-ratio:1;border-radius:50%;background:#132033;transform:translateX(-50%)}
@@ -410,6 +412,13 @@ footer p{margin:0}
         <div class="meta"><span class="price" data-i18n="p3_price">From $15</span><button class="order-link" type="button" data-product="Pet ID tag" data-i18n="order_this">Order this</button></div>
       </article>
 
+      <article class="tile" data-photo="pet-memorial">
+        <div class="swatch m-maple" aria-hidden="true"><div class="frame"><span class="mark">Charlie</span></div></div>
+        <h3 data-i18n="p9_h">Pet portraits and memorials</h3>
+        <p data-i18n="p9_d">Your pet's photo engraved on wood with their name, framed and ready to display.</p>
+        <div class="meta"><span class="price" data-i18n="p9_price">From $45</span><button class="order-link" type="button" data-product="Pet portrait or memorial" data-i18n="order_this">Order this</button></div>
+      </article>
+
       <article class="tile" data-photo="cutting-board">
         <div class="swatch m-walnut" aria-hidden="true"><span class="mark">Familia García</span></div>
         <h3 data-i18n="p4_h">Cutting boards</h3>
@@ -551,6 +560,7 @@ footer p{margin:0}
           <option value="3D photo crystal" data-i18n="p1_h">3D photo crystals</option>
           <option value="Engraved tumbler" data-i18n="p2_h">Engraved tumblers</option>
           <option value="Pet ID tag" data-i18n="p3_h">Pet ID tags</option>
+          <option value="Pet portrait or memorial" data-i18n="p9_h">Pet portraits and memorials</option>
           <option value="Cutting board" data-i18n="p4_h">Cutting boards</option>
           <option value="LED acrylic sign" data-i18n="p5_h">LED acrylic signs</option>
           <option value="Event sign or cake topper" data-i18n="p6_h">Event signs and cake toppers</option>
@@ -650,10 +660,10 @@ footer p{margin:0}
   // Photo 1 shows on the card, photo 2 shows on hover, all of them open in the gallery.
   var PHOTOS = {
     'crystal':0, 'tumbler':0, 'pet-tag':0, 'cutting-board':1, 'led-sign':0,
-    'event-sign':0, 'glassware':0, 'ornament':0, 'business':0
+    'event-sign':0, 'glassware':0, 'ornament':0, 'business':0, 'pet-memorial':1
   };
   // Optional: which part of a photo to keep in view on the card (horizontal% vertical%)
-  var FOCUS = { 'cutting-board':'50% 75%' };
+  var FOCUS = { 'cutting-board':'50% 75%', 'pet-memorial':'50% 42%' };
   // true once media/studio.mp4 and media/studio-poster.webp are uploaded
   var VIDEO = false;
   // WhatsApp number with country code, digits only (for example '17135551234'). Empty hides the button.
@@ -688,6 +698,7 @@ footer p{margin:0}
     p5_h:"Letreros de acrílico LED", p5_d:"Letreros iluminados con tu nombre, tu negocio o tu frase favorita.", p5_price:"Desde $55",
     p6_h:"Letreros y toppers para eventos", p6_d:"Letreros de bienvenida, toppers para pastel y números de mesa para quinceañeras, bodas y bautizos.", p6_price:"Desde $35",
     p7_h:"Copas y vasos grabados", p7_d:"Copas de vino, flautas de champaña y tarros con nombres y fechas.", p7_price:"Desde $22",
+    p9_h:"Retratos y recuerdos de mascotas", p9_d:"La foto de tu mascota grabada en madera con su nombre, enmarcada y lista para exhibir.", p9_price:"Desde $45",
     p8_h:"Adornos navideños", p8_d:"Adornos de madera, acrílico o vidrio con nombres y el año.", p8_price:"Desde $12",
     order_this:"Pedir este",
     biz_h:"Para empresas",
